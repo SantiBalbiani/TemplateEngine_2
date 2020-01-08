@@ -5,6 +5,7 @@ const productsFilePath = path.join(__dirname, '../data/productsDataBase.json');
 const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const getProduct = id => products.find( prod => prod.id == id );
 
 const controller = {
 	// Root - Show all products
@@ -14,7 +15,7 @@ const controller = {
 
 	// Detail - Detail from one product
 	detail: (req, res) => {
-		// Do the magic
+		res.render('detail', {prod: getProduct(req.params.id)  } )
 	},
 
 	// Create - Form to create
